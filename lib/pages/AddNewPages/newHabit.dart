@@ -120,6 +120,7 @@ class NewHabitPageState extends State<NewHabitPage> {
                     NumericField(
                       controller: coins,
                       hintText: tr("coins"),
+
                       maxValue: 10000,
                     ),
                     NumericField(

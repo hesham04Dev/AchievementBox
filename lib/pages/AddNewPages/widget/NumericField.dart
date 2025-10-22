@@ -23,10 +23,10 @@ class NumericField extends StatelessWidget {
         controller: controller,
         keyboardType: const TextInputType.numberWithOptions(),
         validator: (value) {
-          int val = int.parse(value ?? "0");
+          int? val = int.tryParse(value??"" );
           if (value == null || value.isEmpty) {
             return tr("pleaseEnterNumber");
-          } else if (val > maxValue) {
+          } else if (val! > maxValue) {
             return "${tr("valueMustBeLessThan")} $maxValue";
           } else if (val < 0) {
             return "${tr("valueMustBeGreaterThan")} 0";

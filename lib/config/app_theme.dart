@@ -13,7 +13,7 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
       primarySwatch: colors[db.sql.settings.getAccentColorIndex()],
       brightness: isDark ? Brightness.dark : Brightness.light);
   return base.copyWith(
-    tabBarTheme: const TabBarTheme(dividerColor: Colors.transparent),
+    tabBarTheme: const TabBarThemeData(dividerColor: Colors.transparent),
     dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
             alignment: const Alignment(-1, 1.3),
@@ -45,7 +45,7 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
       thumbColor: WidgetStatePropertyAll(swatch.primary.withValues(alpha:0.2)),
     ),
     dialogTheme:
-        DialogTheme(backgroundColor: isDark ? Colors.black : Colors.white),
+        DialogThemeData(backgroundColor: isDark ? Colors.black : Colors.white),
     iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
             iconColor: WidgetStatePropertyAll(
