@@ -22,6 +22,7 @@ import '../../../../rootProvider/settings_controller.dart';
 import 'Widget/lang_dialog.dart';
 import 'Widget/restore_tile.dart';
 
+import '../../../../services/notification_service.dart';
 class SettingBody extends StatefulWidget {
   const SettingBody({super.key});
 
@@ -48,13 +49,58 @@ class _SettingBodyState extends State<SettingBody> {
         context.read<ThemeProvider>().toggleMode();
       },
     );
+
+    int notificationTime = db.sql.settings.getNotificationTime();
+    bool isNotificationEnabled = notificationTime != -1;
+    TimeOfDay selectedTime = isNotificationEnabled
+        ? TimeOfDay(hour: notificationTime ~/ 60, minute: notificationTime % 60)
+        : const TimeOfDay(hour: 9, minute: 0);
+
+    Widget notificationTile = Column(
+      children: [
+        MySwitchTile(
+          title: tr("daily_notification"),
+          value: isNotificationEnabled,
+          onChange: (bool isEnabled) async {
+            if (isEnabled) {
+              db.sql.settings.setNotificationTime(selectedTime);
+              await NotificationService().scheduleDailyNotification(selectedTime);
+            } else {
+              db.sql.settings.setNotificationTimeToFalse();
+              await NotificationService().cancelNotifications();
+            }
+            setState(() {});
+          },
+        ),
+        if (isNotificationEnabled)
+          MyListTile(
+            title: tr("notification_time"),
+            trailing: Text(
+              selectedTime.format(context),
+              style: const TextStyle(fontSize: 16),
+            ),
+            onTap: () async {
+              final TimeOfDay? picked = await showTimePicker(
+                context: context,
+                initialTime: selectedTime,
+              );
+              if (picked != null && picked != selectedTime) {
+                db.sql.settings.setNotificationTime(picked);
+                await NotificationService().scheduleDailyNotification(picked);
+                setState(() {});
+              }
+            },
+          ),
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView(
         children: [
           listViewTile,
           darkModeTile,
-          
+          notificationTile,
           MyListTile(
             title: tr('accentColor'),
             trailing: IconImage(

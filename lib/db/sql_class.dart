@@ -515,9 +515,16 @@ class SettingFn {
     return x[0]['Val'];
   }
 
-  void setNotificationTime(val) {
+  void setNotificationTime(/*TimeOfDay*/ time) {
+    int val = time.hour * 60 + time.minute;
     _db.execute(
         "UPDATE setting set Val = $val WHERE Name = 'NotificationTime' ");
+  }
+  void setNotificationTimeToFalse(){
+    var val = -1;
+    _db.execute(
+        "UPDATE setting set Val = $val WHERE Name = 'NotificationTime' ");
+
   }
 
   int getLanguageId() {

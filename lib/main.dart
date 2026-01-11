@@ -1,3 +1,5 @@
+import 'package:achievement_box/services/notification_service.dart';
+import 'package:flutter_timezone/flutter_timezone.dart'; // Add this package to pubspec.yaml
 import 'package:achievement_box/rootProvider/locale_provider.dart';
 import 'package:flutter/material.dart';
 import "package:localization_lite/translate.dart";
@@ -18,16 +20,16 @@ import 'rootProvider/ThemeProvider.dart';
 import 'rootProvider/categoryProvider.dart';
 import 'rootProvider/giftProvider.dart';
 import 'rootProvider/habitProvider.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await db.openDb();
   SettingsController.appVersion = (await PackageInfo.fromPlatform()).version;
-  await Translate.init(
-    defaultLangCode: 'en',
-  );
-  await Translate.setLang(
-      Translate.supportedLangs[db.sql.settings.getLanguageId()]);
+  await NotificationService().init();
+  await Translate.init(defaultLangCode: 'en');
+  await Translate.setLang(Translate.supportedLangs[db.sql.settings.getLanguageId()]);
+
   runApp(const MyApp());
 }
 
@@ -74,7 +76,7 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales:
-                Translate.supportedLangs.map((lang) => Locale(lang)),
+            Translate.supportedLangs.map((lang) => Locale(lang)),
             themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,
             theme: buildTheme(accentColor, isDarkMode),

@@ -33,6 +33,7 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -48,6 +49,7 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled=true
         applicationId = "hcody.hesham.achivementBox.achivement_box"
         ndkVersion = "29.0.14033849"
         minSdk = flutter.minSdkVersion
@@ -84,4 +86,6 @@ flutter {
 
 dependencies {
     // Add dependencies here if needed
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

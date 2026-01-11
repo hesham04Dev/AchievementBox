@@ -79,7 +79,7 @@ class DbHelper {
   Name TEXT,
   Val INTEGER
   );
-  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1),(6,'ListView',0),(7,'LanguageId',0),(8,'EasterEggs',0),(9,'DBVersion',1);
+  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',-1),(5,'Streak',1),(6,'ListView',0),(7,'LanguageId',0),(8,'EasterEggs',0),(9,'DBVersion',1);
   
     ''';
     const String createLogGiftTable = '''

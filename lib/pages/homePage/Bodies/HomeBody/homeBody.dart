@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:achievement_box/fn/random_item_from_array.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization_lite/translate.dart';
 
 import '../../../../config/const.dart';
 import '../../../../db/db.dart';
@@ -23,8 +25,7 @@ class HomeBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: FittedBox(
-            child: Text(somethingChangedEveryTime[
-                Random().nextInt(somethingChangedEveryTime.length - 1)]),
+            child: Text(tr(getRandom(somethingChangedEveryTime))),
           ),
         ),
         Expanded(
