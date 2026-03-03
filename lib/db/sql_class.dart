@@ -109,6 +109,19 @@ LIMIT 7;
         "select  logHabit.*,habit.Name from logHabit inner join habit on logHabit.HabitId = habit.Id where DateOnly = '$date'");
   }
 
+  String getFirstLogDate(){
+    return _db.select("select distinct DateOnly from logHabit order by DateOnly asc limit 1")[0]['DateOnly'];
+  }
+
+  ResultSet getLogsByMonth(String yearMonth) {
+  // yearMonth format: '2026-03'
+  return _db.select(
+    "select logHabit.*, habit.Name from logHabit "
+    "inner join habit on logHabit.HabitId = habit.Id "
+    "where DateOnly LIKE '$yearMonth%'" // Matches anything starting with 2026-03
+  );
+}
+
   ResultSet getDatesOfLog() {
     return _db.select(
         "select distinct DateOnly from logHabit order by DateOnly desc ");
@@ -225,10 +238,23 @@ LIMIT 1;
     return x;
   }
 
+  String getFirstLogDate(){
+    return _db.select("select distinct DateOnly from logGift order by DateOnly asc limit 1")[0]['DateOnly'];
+  }
+
   ResultSet getLogByDate(String date) {
     return _db.select(
         "select  logGift.*,gift.Name from logGift inner join gift on logGift.GiftId = gift.Id where DateOnly = '$date'");
   }
+
+  
+ResultSet getLogsByMonth(String yearMonth) {
+  return _db.select(
+    "select logGift.*, gift.Name from logGift "
+    "inner join gift on logGift.GiftId = gift.Id "
+    "where DateOnly LIKE '$yearMonth%'"
+  );
+}
 
   ResultSet getDatesOfLog() {
     return _db.select(
