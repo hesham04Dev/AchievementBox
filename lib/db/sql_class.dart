@@ -122,6 +122,26 @@ LIMIT 7;
   );
 }
 
+ResultSet getLogByMonth(String yearMonth, int loggedId) {
+  return _db.select(
+    "SELECT DateOnly, SUM(Count) as TotalCount "
+    "FROM logHabit "
+    "WHERE DateOnly LIKE '$yearMonth%' AND HabitId = $loggedId "
+    "GROUP BY DateOnly "
+    "ORDER BY DateOnly ASC"
+  );
+}
+
+ResultSet getLogByYear(String year, int loggedId) {
+  return _db.select(
+    "SELECT SUBSTR(DateOnly, 6, 2) as Month, SUM(Count) as TotalCount "
+    "FROM logHabit "
+    "WHERE DateOnly LIKE '$year%' AND HabitId = $loggedId "
+    "GROUP BY Month "
+    "ORDER BY Month ASC"
+  );
+}
+
   ResultSet getDatesOfLog() {
     return _db.select(
         "select distinct DateOnly from logHabit order by DateOnly desc ");
@@ -253,6 +273,26 @@ ResultSet getLogsByMonth(String yearMonth) {
     "select logGift.*, gift.Name from logGift "
     "inner join gift on logGift.GiftId = gift.Id "
     "where DateOnly LIKE '$yearMonth%'"
+  );
+}
+
+ResultSet getLogByMonth(String yearMonth, int loggedId) {
+  return _db.select(
+    "SELECT DateOnly, SUM(Count) as TotalCount "
+    "FROM logGift "
+    "WHERE DateOnly LIKE '$yearMonth%' AND GiftId = $loggedId "
+    "GROUP BY DateOnly "
+    "ORDER BY DateOnly ASC"
+  );
+}
+
+ResultSet getLogByYear(String year, int loggedId) {
+  return _db.select(
+    "SELECT SUBSTR(DateOnly, 6, 2) as Month, SUM(Count) as TotalCount "
+    "FROM logGift "
+    "WHERE DateOnly LIKE '$year%' AND GiftId = $loggedId "
+    "GROUP BY Month "
+    "ORDER BY Month ASC"
   );
 }
 

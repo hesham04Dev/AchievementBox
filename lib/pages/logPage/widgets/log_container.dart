@@ -1,56 +1,9 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:sqlite3/sqlite3.dart' as sqlite;
-
-// import '../../../models/PrimaryContainer.dart';
-// import '../models/log.dart';
-
-// class LogContainer extends StatelessWidget {
-//   final sqlite.ResultSet dates;
-//   final Log log;
-
-//   const LogContainer({super.key, required this.dates, required this.log});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemCount: dates.length,
-//       itemBuilder: (BuildContext context, int index) {
-//         sqlite.ResultSet rows =
-//             log.getLogsPerDate(dates[index]["DateOnly"].toString());
-//         var logPerDay = [];
-//         for (sqlite.Row row in rows) {
-//           var widget = PrimaryContainer(
-//               paddingHorizontal: 20,
-//               padding: 10,
-//               child: Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [Text("${row['Name']}"), Text("${row['Count']}")],
-//                 ),
-//               ));
-//           logPerDay.add(widget);
-//         }
-
-//         return Padding(
-//           padding: const EdgeInsets.all(8.0),
-//           child: Column(
-//             children: [Text("${dates[index]["DateOnly"]} "), ...logPerDay],
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
-
-
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Add intl to pubspec.yaml for easy date formatting
 import 'package:sqlite3/sqlite3.dart' as sqlite;
 import '../../../models/PrimaryContainer.dart';
-import '../models/log.dart';
+import '../../../models/log.dart';
+import "package:localization_lite/translate.dart";
 
 class LogContainer extends StatefulWidget {
   final Log log;
@@ -115,7 +68,7 @@ class _LogContainerState extends State<LogContainer> {
         // The List
         Expanded(
           child: sortedDates.isEmpty 
-            ? const Center(child: Text("No logs for this month"))
+            ? Center(child: Text(tr("noLogsForThisPeriod")))
             : ListView.builder(
                 itemCount: sortedDates.length,
                 itemBuilder: (context, index) {

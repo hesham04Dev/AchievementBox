@@ -8,6 +8,8 @@ abstract class Log {
   Log(this.name);
   getLogsPerDate(String date);
   getLogsByMonth(String yearMonth);
+  getLogByYear(String year, int logedId);
+  getLogByMonth(String yearMonth, int logedId);
   getFirstLogDate();
 }
 
@@ -25,6 +27,14 @@ class LogHabit extends Log {
   getFirstLogDate(){
     return db.sql.habits.getFirstLogDate();
   }
+  @override
+   getLogByYear(String year, int logedId){
+    return db.sql.habits.getLogByYear(year, logedId);
+   }
+  @override
+  getLogByMonth(String yearMonth, int logedId){
+    return db.sql.habits.getLogByMonth(yearMonth, logedId);
+  }
 }
 
 class LogGift extends Log {
@@ -40,5 +50,14 @@ class LogGift extends Log {
   @override
   getFirstLogDate(){
     return db.sql.gifts.getFirstLogDate();
+  }
+
+  @override
+   getLogByYear(String year, int logedId){
+    return db.sql.gifts.getLogByYear(year, logedId);
+   }
+  @override
+  getLogByMonth(String yearMonth, int logedId){
+    return db.sql.gifts.getLogByMonth(yearMonth, logedId);
   }
 }

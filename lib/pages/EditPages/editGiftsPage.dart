@@ -9,6 +9,8 @@ import '../../output/generated/icon_names.dart';
 import '../../rootProvider/giftProvider.dart';
 import '../../pages/AddNewPages/newGift.dart';
 import '../../pages/ArchivePage/archivePage.dart';
+import '/models/ActivityCharts.dart';
+import '/models/log.dart';
 
 import '../AddNewPages/widget/icon.dart';
 
@@ -117,7 +119,14 @@ class _EditGiftPageState extends NewGiftPageState {
               },
               child: const Text("+"))
         ],
-      ))
+      )),
+      PrimaryContainer(
+        padding: 15,
+        child: ActivityChart(
+          logProvider: LogGift(), 
+          itemId: gift.id,
+        ),
+      ),
     ];
     return super.build(context);
   }

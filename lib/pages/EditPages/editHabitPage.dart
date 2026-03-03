@@ -10,6 +10,8 @@ import '../../output/generated/icon_names.dart';
 import '../../rootProvider/habitProvider.dart';
 import '../../models/PrimaryContainer.dart';
 import '../../models/imageIcon.dart';
+import '/models/ActivityCharts.dart';
+import '/models/log.dart';
 
 import '../AddNewPages/newHabit.dart';
 import '../AddNewPages/widget/icon.dart';
@@ -125,7 +127,15 @@ class _EditHabitPageState extends NewHabitPageState {
               },
               child: const Text("+"))
         ],
-      ))
+      )),   
+      
+      PrimaryContainer(
+        padding: 15,
+        child: ActivityChart(
+          logProvider: LogHabit(), 
+          itemId: habit.id,
+        ),
+      ),
     ];
     return super.build(context);
   }
