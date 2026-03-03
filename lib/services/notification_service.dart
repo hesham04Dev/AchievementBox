@@ -88,4 +88,9 @@ class NotificationService {
   Future<void> cancelNotifications() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
+  requestNotificationsPermission(){
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+  }
+
 }

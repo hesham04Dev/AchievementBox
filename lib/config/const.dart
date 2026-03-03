@@ -35,8 +35,6 @@ const kEmail = "hesham04.developer@gmail.com";
   ];
 
  List<String> notificationKeys = [
-  "daily_notification"
-  "notification_time"
   "quote_small_steps"
   "quote_dont_break_chain"
   "quote_future_self"

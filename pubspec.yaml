@@ -2,7 +2,7 @@ name: achievement_box
 description: A powerful application designed to help you develop good habits, break bad ones, and achieve your goals.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.4.7+12
+version: 1.4.9+14
 
 environment:
   sdk: '>=3.10.0 <4.0.0'

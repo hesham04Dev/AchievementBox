@@ -63,6 +63,7 @@ class _SettingBodyState extends State<SettingBody> {
           value: isNotificationEnabled,
           onChange: (bool isEnabled) async {
             if (isEnabled) {
+              NotificationService().requestNotificationsPermission();
               db.sql.settings.setNotificationTime(selectedTime);
               await NotificationService().scheduleDailyNotification(selectedTime);
             } else {
